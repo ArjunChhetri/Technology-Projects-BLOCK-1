@@ -1,50 +1,72 @@
-# Technology Projects BLOCK 1
+# Raspberry Pi Performance & Metrics Lab 🥼📊
 
-Welcome! This repository is organized as a student lab journal for an introductory technology curriculum. It is divided into module folders that guide classroom exploration of hardware, binary logic, low-level programming, and benchmarking concepts.
+Welcome to this hands‑on lab! Today you’ll explore how to measure CPU speed, memory usage, storage I/O, network performance, and temperature on your Raspberry Pi.
 
-## 📚 Learning Goals
+## 🧠 What You'll Learn
+- How fast the Raspberry Pi can compute operations
+- How memory is allocated and measured
+- How fast the Pi can read/write data
+- How fast your network connection is
+- How temperature affects performance
 
-You will:
-- Understand component-level computer hardware and firmware programming fundamentals.
-- Practice digital logic and number systems using hands-on examples.
-- Discover programming in Assembly, C, C++, Python, and Scratch.
-- Perform basic benchmarking for CPU, memory, IO, and networking.
-- Learn technical lab notebook habits including objectives, procedures, observations, and reflections.
+## 🛠️ Requirements
+- Raspberry Pi 4 or 5
+- Python 3
+- Tools: `iperf3`, `ping`, `stress`, `vcgencmd`, `htop`, `dd`
 
-## 📁 Repository Structure
+## 📁 What to Submit
+Upload to your GitHub Classroom repository:
+- A `results/` folder containing the outputs of each task
+- A `REPORT.md` (1-2 pages) summarising what you observed
 
-1. WEEK 1: `1.1_software/`
-   - `01_intro_git/` — Git/GitHub workflow notes
-   - `02_CLI/` — Terminal basics (file operations, editors, system info)
-   - `03_github_sync/` - GitHub synchronisation
-
-2. WEEK 2: `1.2_logic/`
-   - `01_computers/` — Hardware vs software, device teardown, and reflection 
-   - `02_number_systems/` — Conversions, binary arithmetic, 2’s complement, fixed point, limits
-   - `03_truth_tables/` — Boolean logic and truth table exercises
-
-3. WEEK 3: `1.3_instructions/`
-   - `00_environment.md` — Setup for programming environment
-   - `01_assembly.md` — Assembly language concepts and practice
-   - `02_c.md` — C programming starter exercises
-   - `03_cpp.md` — C++ examples and journaling
-   - `04_python.md` — Python exercises and notes
-   - `05_scratch.md` — Scratch block programming
-   - `journal_programming.md` — Reflective programming log
-   - `README.md` — Module overview
-
-4. WEEK 4: `1.4_benchmarking/`
-   - `01_cpu.md`, `02_memory.md`, `03_io.md`, `04_network.md`, `05_thermal.md` — Benchmarking methods
-   - `README.md` — Module summary
-
-## 🧭 How to use this journal
-
-1. Start in `1.1_software` and follow the numbered activity files. Read the instructions, complete the task, then write your answers directly in the file or your copy.
-2. Move to `1.2_logic` for number systems and CLI work. Do exercises in order; each page builds a concept from the prior.
-3. Review `1.3_instructions` for programming language exploration. Focus on syntax, compile/run workflow, and written reflections.
-4. Finish in `1.4_bechmarking` with performance measurement labs, diagrams, and comparison notes.
+## ▶️ Start the Lab
+Open the task files below:
+- **01_cpu.md**
+- **02_memory.md**
+- **03_io.md**
+- **04_network.md**
+- **05_thermal.md**
 
 
----
+## Easter Egg -- Save files into .txt from the terminal
 
-Have a great learning journey! Keep an updated journal and review it before quizzes or project proposals.
+When you are running the Python file, you can say:
+```bash
+python3 cpu_test.py > results/cpu.txt
+```
+- \> means “send output into this file”
+- If the file doesn't exist, it's created
+- If it exists, it is overwritten
+
+Instead, to append the content:
+```bash
+python3 cpu_test.py >> results/cpu.txt
+```
+
+Same for terminal prompts:
+```bash
+dd if=/dev/zero of=testfile.bin bs=100M count=1 oflag=direct > results/io.txt
+```
+or
+```bash
+dd if=/dev/zero of=testfile.bin bs=100M count=1 oflag=direct >> results/io.txt
+```
+
+## Second Easter Egg -- Plot from .txt 
+
+```python
+import matplotlib.pyplot as plt
+
+# Load the numbers (one per line)
+with open("results/temperature.txt") as f:
+    temps = [float(line.strip()) for line in f]
+
+plt.plot(temps, marker='o')
+plt.title("Temperature Over Time")
+plt.xlabel("Measurement Number")
+plt.ylabel("Temperature (°C)")
+plt.grid(True)
+plt.show()
+plt.savefig("results/temperature_plot.png")
+```
+
